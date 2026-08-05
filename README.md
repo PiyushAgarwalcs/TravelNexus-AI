@@ -28,27 +28,66 @@ TravelNexus-AI demonstrates advanced agentic workflows using **LangGraph** and t
 The system utilizes a directed graph architecture built with LangGraph:
 
 ```mermaid
-graph TD
-    User([User Prompt]) --> G{Input Guardrail}
-    G -- "Blocked" --> End([End])
-    G -- "Allowed" --> Sup[Supervisor Agent]
-    
-    Sup --> F[Flight Agent]
-    Sup --> H[Hotel Agent]
-    Sup --> W[Weather Agent]
-    Sup --> B[Budget Agent]
-    
-    F --> I[Itinerary Agent]
-    H --> I
-    W --> I
-    B --> I
-    Sup -- "Direct" --> I
-    
-    I --> HITL{Human Approval}
-    HITL -- "Feedback" --> Sup
-    HITL -- "Approved" --> Final[Final Plan Generation]
-    Final --> DB[(PostgreSQL State)]
-    Final --> End
+flowchart TD
+    %% Define Styles
+    classDef user fill:#eef2ff,stroke:#6366f1,stroke-width:2px,color:#1e1b4b
+    classDef guardrail fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#14532d
+    classDef blocked fill:#fef2f2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d
+    classDef supervisor fill:#faf5ff,stroke:#a855f7,stroke-width:2px,color:#581c87
+    classDef agent_flight fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    classDef agent_hotel fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#14532d
+    classDef agent_weather fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,color:#78350f
+    classDef agent_budget fill:#f5f3ff,stroke:#8b5cf6,stroke-width:2px,color:#4c1d95
+    classDef agent_itinerary fill:#f0fdfa,stroke:#14b8a6,stroke-width:2px,color:#134e4a
+    classDef state fill:#f8fafc,stroke:#64748b,stroke-width:2px,color:#0f172a
+    classDef hitl fill:#fdf4ff,stroke:#d946ef,stroke-width:2px,color:#701a75
+    classDef final fill:#faf5ff,stroke:#a855f7,stroke-width:2px,color:#581c87
+    classDef db fill:#f8fafc,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e
+
+    %% 1. User Input
+    User["👤 1. USER INPUT<br/><i>'Plan a 4 day trip to Dubai...'</i>"]:::user
+
+    %% 2. Guardrail
+    Guardrail{"🛡️ 2. INPUT GUARDRAIL<br/>Validate Request<br/>(Relevance, Safety)"}:::guardrail
+    User --> Guardrail
+
+    Blocked["🚫 BLOCKED REQUEST<br/>Provide reason & stop"]:::blocked
+    Guardrail -- "BLOCK ❌" --> Blocked
+
+    %% 3. Supervisor
+    Supervisor["🤖 3. SUPERVISOR AGENT<br/>Understands request & dynamically<br/>decides which agents are needed<br/><i>(No manual workflow!)</i>"]:::supervisor
+    Guardrail -- "PASS ✅" --> Supervisor
+
+    %% 4. Specialists
+    subgraph Specialists ["4. SPECIALIST AI AGENTS (Selected Dynamically)"]
+        Flight["✈️ Flight Agent<br/>Searches flights & routes<br/><i>(AviationStack MCP)</i>"]:::agent_flight
+        Hotel["🏨 Hotel Agent<br/>Searches hotels & reviews<br/><i>(Tavily MCP)</i>"]:::agent_hotel
+        Weather["☀️ Weather Agent<br/>Climate & packing info<br/><i>(Custom MCP)</i>"]:::agent_weather
+        Budget["💰 Budget Agent<br/>Analyzes budget & costs<br/><i>(LLM)</i>"]:::agent_budget
+        Itinerary["🗺️ Itinerary Agent<br/>Creates day-wise plan<br/><i>(LLM)</i>"]:::agent_itinerary
+    end
+
+    Supervisor --> Flight & Hotel & Weather & Budget
+    Flight & Hotel & Weather & Budget --> Itinerary
+    Supervisor -- "Direct Route" ----> Itinerary
+
+    %% 5. State
+    State[("🗄️ 5. SHARED STATE (TravelState)<br/>user_query | trip_constraints | flight_results<br/>hotel_results | weather_info | budget_analysis<br/>itinerary_plan | messages | llm_calls")]:::state
+    Specialists -.- State
+
+    %% 6. HITL
+    HITL{"👤 6. HUMAN-IN-THE-LOOP<br/>Review generated itinerary"}:::hitl
+    Itinerary --> HITL
+
+    HITL -- "Request Changes ✏️" --> Supervisor
+
+    %% 7. Final Response
+    Final["💬 7. FINAL RESPONSE AGENT<br/>Generates well-structured travel plan"]:::final
+    HITL -- "Approve ✅" --> Final
+
+    %% 8. Persistence
+    DB[("🐘 8. PERSISTENCE<br/>PostgreSQL Checkpointer<br/><i>Long-Term Memory</i>")]:::db
+    Final --> DB
 ```
 
 1.  **Input:** User provides a prompt.
