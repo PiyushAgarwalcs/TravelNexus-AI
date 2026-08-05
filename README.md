@@ -28,43 +28,44 @@ TravelNexus-AI demonstrates advanced agentic workflows using **LangGraph** and t
 The system utilizes a directed graph architecture built with LangGraph:
 
 ```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80}}}%%
 flowchart TD
-    %% Define Styles
-    classDef user fill:#eef2ff,stroke:#6366f1,stroke-width:2px,color:#1e1b4b
-    classDef guardrail fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#14532d
-    classDef blocked fill:#fef2f2,stroke:#ef4444,stroke-width:2px,color:#7f1d1d
-    classDef supervisor fill:#faf5ff,stroke:#a855f7,stroke-width:2px,color:#581c87
-    classDef agent_flight fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
-    classDef agent_hotel fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#14532d
-    classDef agent_weather fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,color:#78350f
-    classDef agent_budget fill:#f5f3ff,stroke:#8b5cf6,stroke-width:2px,color:#4c1d95
-    classDef agent_itinerary fill:#f0fdfa,stroke:#14b8a6,stroke-width:2px,color:#134e4a
-    classDef state fill:#f8fafc,stroke:#64748b,stroke-width:2px,color:#0f172a
-    classDef hitl fill:#fdf4ff,stroke:#d946ef,stroke-width:2px,color:#701a75
-    classDef final fill:#faf5ff,stroke:#a855f7,stroke-width:2px,color:#581c87
-    classDef db fill:#f8fafc,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e
+    %% Define Styles (Round boxes, Lighter colors, Architects Daughter font)
+    classDef user fill:#f8faff,stroke:#a5b4fc,stroke-width:2px,color:#312e81,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef guardrail fill:#f0fdf4,stroke:#86efac,stroke-width:2px,color:#14532d,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef blocked fill:#fff1f2,stroke:#fda4af,stroke-width:2px,color:#881337,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef supervisor fill:#faf5ff,stroke:#d8b4fe,stroke-width:2px,color:#4c1d95,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef agent_flight fill:#eff6ff,stroke:#93c5fd,stroke-width:2px,color:#1e3a8a,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef agent_hotel fill:#f0fdf4,stroke:#86efac,stroke-width:2px,color:#14532d,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef agent_weather fill:#fffbeb,stroke:#fcd34d,stroke-width:2px,color:#78350f,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef agent_budget fill:#f5f3ff,stroke:#c4b5fd,stroke-width:2px,color:#4c1d95,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef agent_itinerary fill:#f0fdfa,stroke:#5eead4,stroke-width:2px,color:#134e4a,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef state fill:#f8fafc,stroke:#cbd5e1,stroke-width:2px,color:#0f172a,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef hitl fill:#fdf4ff,stroke:#f0abfc,stroke-width:2px,color:#701a75,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef final fill:#faf5ff,stroke:#d8b4fe,stroke-width:2px,color:#4c1d95,rx:15,ry:15,font-family:Architects Daughter,cursive
+    classDef db fill:#f0f9ff,stroke:#7dd3fc,stroke-width:2px,color:#0c4a6e,rx:15,ry:15,font-family:Architects Daughter,cursive
 
     %% 1. User Input
-    User["👤 1. USER INPUT<br/><i>'Plan a 4 day trip to Dubai...'</i>"]:::user
+    User("👤 1. USER INPUT<br/><i>'Plan a 4 day trip to Dubai...'</i>"):::user
 
     %% 2. Guardrail
     Guardrail{"🛡️ 2. INPUT GUARDRAIL<br/>Validate Request<br/>(Relevance, Safety)"}:::guardrail
     User --> Guardrail
 
-    Blocked["🚫 BLOCKED REQUEST<br/>Provide reason & stop"]:::blocked
+    Blocked("🚫 BLOCKED REQUEST<br/>Provide reason & stop"):::blocked
     Guardrail -- "BLOCK ❌" --> Blocked
 
     %% 3. Supervisor
-    Supervisor["🤖 3. SUPERVISOR AGENT<br/>Understands request & dynamically<br/>decides which agents are needed<br/><i>(No manual workflow!)</i>"]:::supervisor
+    Supervisor("🤖 3. SUPERVISOR AGENT<br/>Understands request & dynamically<br/>decides which agents are needed<br/><i>(No manual workflow!)</i>"):::supervisor
     Guardrail -- "PASS ✅" --> Supervisor
 
     %% 4. Specialists
     subgraph Specialists ["4. SPECIALIST AI AGENTS (Selected Dynamically)"]
-        Flight["✈️ Flight Agent<br/>Searches flights & routes<br/><i>(AviationStack MCP)</i>"]:::agent_flight
-        Hotel["🏨 Hotel Agent<br/>Searches hotels & reviews<br/><i>(Tavily MCP)</i>"]:::agent_hotel
-        Weather["☀️ Weather Agent<br/>Climate & packing info<br/><i>(Custom MCP)</i>"]:::agent_weather
-        Budget["💰 Budget Agent<br/>Analyzes budget & costs<br/><i>(LLM)</i>"]:::agent_budget
-        Itinerary["🗺️ Itinerary Agent<br/>Creates day-wise plan<br/><i>(LLM)</i>"]:::agent_itinerary
+        Flight("✈️ Flight Agent<br/>Searches flights & routes<br/><i>(AviationStack MCP)</i>"):::agent_flight
+        Hotel("🏨 Hotel Agent<br/>Searches hotels & reviews<br/><i>(Tavily MCP)</i>"):::agent_hotel
+        Weather("☀️ Weather Agent<br/>Climate & packing info<br/><i>(Custom MCP)</i>"):::agent_weather
+        Budget("💰 Budget Agent<br/>Analyzes budget & costs<br/><i>(LLM)</i>"):::agent_budget
+        Itinerary("🗺️ Itinerary Agent<br/>Creates day-wise plan<br/><i>(LLM)</i>"):::agent_itinerary
     end
 
     Supervisor --> Flight & Hotel & Weather & Budget
@@ -82,7 +83,7 @@ flowchart TD
     HITL -- "Request Changes ✏️" --> Supervisor
 
     %% 7. Final Response
-    Final["💬 7. FINAL RESPONSE AGENT<br/>Generates well-structured travel plan"]:::final
+    Final("💬 7. FINAL RESPONSE AGENT<br/>Generates well-structured travel plan"):::final
     HITL -- "Approve ✅" --> Final
 
     %% 8. Persistence
