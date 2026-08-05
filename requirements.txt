@@ -1,20 +1,51 @@
-langgraph==1.2.2
-langchain==1.3.2
-langchain-groq==1.1.3
-langchain-community==0.4.2
-langchain-tavily==0.2.18
-psycopg[binary]==3.3.4
-psycopg_pool==3.3.1
-python-dotenv==1.2.2
-tavily-python==0.7.24
-requests==2.34.2
-langgraph-checkpoint-postgres==3.1.0
-airportsdata==20260315
-pycountry==26.2.16
-fastapi==0.136.3
-uvicorn==0.48.0
-jinja2==3.1.6
-langchain-mcp-adapters==0.3.0
-nest_asyncio==1.6.0
-mcp==1.28.1
-certifi==2026.6.17
+# ===========================
+# LangChain & LangGraph Core
+# ===========================
+langchain==1.3.2                    # Core LangChain framework
+langgraph==1.2.2                    # Multi-agent graph orchestration
+langchain-community==0.4.2          # Community integrations for LangChain
+
+# ===========================
+# LLM Provider (Groq)
+# ===========================
+langchain-groq==1.1.3               # Groq LLM integration (Llama 3.3 70B)
+
+# ===========================
+# MCP (Model Context Protocol)
+# ===========================
+mcp==1.28.1                         # MCP server/client SDK
+langchain-mcp-adapters==0.3.0       # LangChain ↔ MCP bridge
+
+# ===========================
+# Search & Data APIs
+# ===========================
+langchain-tavily==0.2.18            # Tavily search integration for LangChain
+tavily-python==0.7.24               # Tavily Python SDK (hotel/web search)
+airportsdata==20260315              # Offline airport database
+pycountry==26.2.16                  # Country/currency metadata
+
+# ===========================
+# Weather
+# ===========================
+requests==2.34.2                    # HTTP client (OpenWeather API calls)
+certifi==2026.6.17                  # SSL certificate bundle for HTTPS
+
+# ===========================
+# Database (PostgreSQL Checkpointer)
+# ===========================
+psycopg[binary]==3.3.4              # PostgreSQL adapter (LangGraph state persistence)
+psycopg_pool==3.3.1                 # Connection pooling for psycopg
+langgraph-checkpoint-postgres==3.1.0  # LangGraph checkpoint storage in Postgres
+
+# ===========================
+# Web Framework (FastAPI)
+# ===========================
+fastapi==0.136.3                    # API framework (endpoints + frontend serving)
+uvicorn==0.48.0                     # ASGI server to run FastAPI
+jinja2==3.1.6                       # HTML template rendering
+
+# ===========================
+# Utilities
+# ===========================
+python-dotenv==1.2.2                # Load .env variables into os.environ
+nest_asyncio==1.6.0                 # Allow sync → async calls inside FastAPI

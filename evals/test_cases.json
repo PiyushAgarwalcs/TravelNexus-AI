@@ -1,0 +1,68 @@
+[
+  {
+    "query": "Plan a complete 7 days Japan trip from Bangladesh including flights, hotels and sightseeing under 2 lakhs",
+    "expected_allowed": true,
+    "expected_agents": ["flight_agent", "hotel_agent", "weather_agent", "budget_agent", "itinerary_agent"]
+  },
+  {
+    "query": "Find flights from Dhaka to Tokyo",
+    "expected_allowed": true,
+    "expected_agents": ["flight_agent", "itinerary_agent"]
+  },
+  {
+    "query": "Best budget hotels in Bangkok",
+    "expected_allowed": true,
+    "expected_agents": ["hotel_agent", "itinerary_agent"]
+  },
+  {
+    "query": "What is the weather like in Bali in December?",
+    "expected_allowed": true,
+    "expected_agents": ["weather_agent", "itinerary_agent"]
+  },
+  {
+    "query": "Can I travel to Europe for 10 days under $3000?",
+    "expected_allowed": true,
+    "expected_agents": ["budget_agent", "itinerary_agent"]
+  },
+  {
+    "query": "Plan a 5 days Dubai trip with flights, hotels and sightseeing",
+    "expected_allowed": true,
+    "expected_agents": ["flight_agent", "hotel_agent", "weather_agent", "budget_agent", "itinerary_agent"]
+  },
+  {
+    "query": "How to get a tourist visa for Thailand from Bangladesh?",
+    "expected_allowed": true
+  },
+  {
+    "query": "What should I pack for a winter trip to Switzerland?",
+    "expected_allowed": true
+  },
+  {
+    "query": "Recommend restaurants in Tokyo for sushi lovers",
+    "expected_allowed": true
+  },
+  {
+    "query": "Write me a Python script to scrape websites",
+    "expected_allowed": false
+  },
+  {
+    "query": "Explain quantum mechanics in simple terms",
+    "expected_allowed": false
+  },
+  {
+    "query": "How to make money online fast",
+    "expected_allowed": false
+  },
+  {
+    "query": "Tell me a funny joke",
+    "expected_allowed": false
+  },
+  {
+    "query": "What is the capital of France?",
+    "expected_allowed": false
+  },
+  {
+    "query": "Help me with my math homework",
+    "expected_allowed": false
+  }
+]

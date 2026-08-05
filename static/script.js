@@ -80,6 +80,7 @@ function showWorkflow(data) {
   }
 
   section.classList.remove("hidden");
+  section.classList.add("fade-in");
 }
 
 function showResult(answer, threadId, isDraft = false) {
@@ -94,6 +95,7 @@ function showResult(answer, threadId, isDraft = false) {
   threadInfo.textContent = `Thread ID: ${threadId}`;
   resultTitle.textContent = isDraft ? "Draft Travel Plan" : "Your Final AI Travel Plan";
   resultSection.classList.remove("hidden");
+  resultSection.classList.add("fade-in");
 
   resultSection.scrollIntoView({
     behavior: "smooth",
@@ -108,6 +110,7 @@ function showApproval(data) {
   approvalRequest.textContent = data.approval_request ||
     "Approve the draft or provide feedback before the final plan is generated.";
   section.classList.remove("hidden");
+  section.classList.add("fade-in");
 }
 
 function hideApproval() {
@@ -297,3 +300,18 @@ document.addEventListener("keydown", function(event) {
     sendMessage();
   }
 });
+
+function startNewPlan() {
+  currentThreadId = null;
+  localStorage.removeItem("travel_thread_id");
+  waitingForApproval = false;
+  latestAnswerMarkdown = "";
+
+  document.getElementById("userInput").value = "";
+  document.getElementById("workflowSection").classList.add("hidden");
+  document.getElementById("resultSection").classList.add("hidden");
+  document.getElementById("approvalSection").classList.add("hidden");
+  document.getElementById("errorBox").classList.add("hidden");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}

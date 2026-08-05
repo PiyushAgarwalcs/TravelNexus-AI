@@ -1,0 +1,30 @@
+# ═══════════════════════════════════════════════════════
+# TravelNexus-AI — Tool Configuration
+# ═══════════════════════════════════════════════════════
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests that call the real LLM (deselect with '-m \"not slow\"')",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"backend.py" = ["E402"]
+"mcp_client.py" = ["E402"]
+"tests/conftest.py" = ["E402"]
+
+[tool.coverage.run]
+source = ["."]
+omit = ["tests/*", "evals/*", ".venv/*", "__pycache__/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true

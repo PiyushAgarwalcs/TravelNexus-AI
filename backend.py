@@ -190,7 +190,7 @@ User request:
 
     if not allowed:
         reason = guardrail_reason or (
-            "TripMate AI can only help with travel-planning requests. "
+            "TravelNexus-AI can only help with travel-planning requests. "
             "Please ask about a destination, flight, hotel, weather, budget, "
             "or itinerary."
         )
