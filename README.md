@@ -30,26 +30,26 @@ The system utilizes a directed graph architecture built with LangGraph:
 ```mermaid
 %%{init: {'flowchart': {'nodeSpacing': 80, 'rankSpacing': 80}}}%%
 flowchart TD
-    %% Define Styles (Round boxes, Lighter colors, Architects Daughter font)
-    classDef user fill:#f8faff,stroke:#a5b4fc,stroke-width:2px,color:#312e81,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef guardrail fill:#f0fdf4,stroke:#86efac,stroke-width:2px,color:#14532d,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef blocked fill:#fff1f2,stroke:#fda4af,stroke-width:2px,color:#881337,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef supervisor fill:#faf5ff,stroke:#d8b4fe,stroke-width:2px,color:#4c1d95,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef agent_flight fill:#eff6ff,stroke:#93c5fd,stroke-width:2px,color:#1e3a8a,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef agent_hotel fill:#f0fdf4,stroke:#86efac,stroke-width:2px,color:#14532d,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef agent_weather fill:#fffbeb,stroke:#fcd34d,stroke-width:2px,color:#78350f,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef agent_budget fill:#f5f3ff,stroke:#c4b5fd,stroke-width:2px,color:#4c1d95,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef agent_itinerary fill:#f0fdfa,stroke:#5eead4,stroke-width:2px,color:#134e4a,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef state fill:#f8fafc,stroke:#cbd5e1,stroke-width:2px,color:#0f172a,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef hitl fill:#fdf4ff,stroke:#f0abfc,stroke-width:2px,color:#701a75,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef final fill:#faf5ff,stroke:#d8b4fe,stroke-width:2px,color:#4c1d95,rx:15,ry:15,font-family:Architects Daughter,cursive
-    classDef db fill:#f0f9ff,stroke:#7dd3fc,stroke-width:2px,color:#0c4a6e,rx:15,ry:15,font-family:Architects Daughter,cursive
+    %% Define Styles (Round boxes, Transparent fill, Colorful borders, Jojoba font)
+    classDef user fill:transparent,stroke:#6366f1,stroke-width:2px,color:#312e81,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef guardrail fill:transparent,stroke:#22c55e,stroke-width:2px,color:#14532d,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef blocked fill:transparent,stroke:#ef4444,stroke-width:2px,color:#881337,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef supervisor fill:transparent,stroke:#a855f7,stroke-width:2px,color:#4c1d95,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef agent_flight fill:transparent,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef agent_hotel fill:transparent,stroke:#22c55e,stroke-width:2px,color:#14532d,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef agent_weather fill:transparent,stroke:#f59e0b,stroke-width:2px,color:#78350f,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef agent_budget fill:transparent,stroke:#8b5cf6,stroke-width:2px,color:#4c1d95,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef agent_itinerary fill:transparent,stroke:#14b8a6,stroke-width:2px,color:#134e4a,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef state fill:transparent,stroke:#64748b,stroke-width:2px,color:#0f172a,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef hitl fill:transparent,stroke:#d946ef,stroke-width:2px,color:#701a75,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef final fill:transparent,stroke:#a855f7,stroke-width:2px,color:#4c1d95,rx:15,ry:15,font-family:Jojoba,sans-serif
+    classDef db fill:transparent,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e,rx:15,ry:15,font-family:Jojoba,sans-serif
 
     %% 1. User Input
     User("👤 1. USER INPUT<br/><i>'Plan a 4 day trip to Dubai...'</i>"):::user
 
     %% 2. Guardrail
-    Guardrail{"🛡️ 2. INPUT GUARDRAIL<br/>Validate Request<br/>(Relevance, Safety)"}:::guardrail
+    Guardrail("🛡️ 2. INPUT GUARDRAIL<br/>Validate Request<br/>(Relevance, Safety)"):::guardrail
     User --> Guardrail
 
     Blocked("🚫 BLOCKED REQUEST<br/>Provide reason & stop"):::blocked
@@ -73,11 +73,11 @@ flowchart TD
     Supervisor -- "Direct Route" ----> Itinerary
 
     %% 5. State
-    State[("🗄️ 5. SHARED STATE (TravelState)<br/>user_query | trip_constraints | flight_results<br/>hotel_results | weather_info | budget_analysis<br/>itinerary_plan | messages | llm_calls")]:::state
+    State("🗄️ 5. SHARED STATE (TravelState)<br/>user_query | trip_constraints | flight_results<br/>hotel_results | weather_info | budget_analysis<br/>itinerary_plan | messages | llm_calls"):::state
     Specialists -.- State
 
     %% 6. HITL
-    HITL{"👤 6. HUMAN-IN-THE-LOOP<br/>Review generated itinerary"}:::hitl
+    HITL("👤 6. HUMAN-IN-THE-LOOP<br/>Review generated itinerary"):::hitl
     Itinerary --> HITL
 
     HITL -- "Request Changes ✏️" --> Supervisor
@@ -87,7 +87,7 @@ flowchart TD
     HITL -- "Approve ✅" --> Final
 
     %% 8. Persistence
-    DB[("🐘 8. PERSISTENCE<br/>PostgreSQL Checkpointer<br/><i>Long-Term Memory</i>")]:::db
+    DB("🐘 8. PERSISTENCE<br/>PostgreSQL Checkpointer<br/><i>Long-Term Memory</i>"):::db
     Final --> DB
 ```
 
