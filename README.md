@@ -125,7 +125,7 @@ flowchart TD
 ### 2. Installation
 ```powershell
 # Clone the repository
-git clone https://github.com/yourusername/TravelNexus-AI.git
+git clone https://github.com/PiyushAgarwalcs/TravelNexus-AI.git
 cd TravelNexus-AI
 
 # Create and activate virtual environment
