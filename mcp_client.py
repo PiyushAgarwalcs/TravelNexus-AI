@@ -319,4 +319,4 @@ Do not add any explanation.
             "The destination could not be extracted."
         )
 
-    return destination
+    return destination

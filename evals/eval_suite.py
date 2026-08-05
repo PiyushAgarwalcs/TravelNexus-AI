@@ -22,7 +22,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from backend import AGENT_ORDER, supervisor_agent  # noqa: E402
+from backend import supervisor_agent  # noqa: E402
 
 
 # ═══════════════════════════════════════════════════════
